@@ -1,0 +1,21 @@
+module.exports = {
+    root:true,
+    env:{
+        node:true,
+        browser:true
+    },
+    parserOptions:{
+        ecmaVertion:6,
+        sourceType:'module',
+        ecmaFeatures:{
+            jsx:true
+        }
+    },
+    plugins:['vue','prettier'],
+    extends:['plugin:vue/essential','eslint:recommended','prettier'],
+    rules:{
+        'prettier/prettier':'error',
+        'arrow-body-style':'off',
+        'prefer-arrow-callback':'off'
+    }
+}
