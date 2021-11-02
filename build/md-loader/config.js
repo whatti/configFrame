@@ -2,7 +2,7 @@ const Config = require('markdown-it-chain') //链函数式配置markdown-it的�
 const anchorPlugin = require('markdown-it-anchor') //标题锚点生成插件
 const slugify = require('transliteration').slugify //汉字转拼音插件
 const containers = require('./containers')
-// const overWriteFenceRule = require('./fence')
+const overWriteFenceRule = require('./fence')
 
 //实例化配置对象
 const config = new Config()
@@ -30,5 +30,8 @@ config.options //markdown-it选项配置
   .end()
 //使用上述配置创建一个markdown-it的实例
 const md = config.toMd()
+
+//覆盖默认的fence代码块渲染规则，即:::之间的代码
+overWriteFenceRule(md)
 
 module.exports = md
