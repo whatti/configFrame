@@ -157,15 +157,15 @@ module.exports = (md) => {
         const description = m && m.length > 1 ? m[1] : ''
         const content = tokens[idx + 1].type === 'fence' ? tokens[idx + 1].content : ''
         //使用自定义开发组件 demo-block来包裹内容并且渲染代码示例
-        // return `<demo-block>
-        // ${description ? `<div>${md.render(description)}</div>` : ''}
-        // <!--meui-demo: ${content}:meui-demo-->
-        // </demo-block>`
         //这里返回的会放在原 :::demo 位置，替换掉:::demo
-        return `<div>`
+        return `<demo-block>
+         ${description ? `<div>${md.render(description)}</div>` : ''}
+         <!--meui-demo: ${content}:meui-demo-->`
+
+        //return `<div>`
       }
       //这里返回会放在结尾 ::: 位置，并替换
-      return `</div>`
+      return `</demo-block>`
     },
   })
   //解析 :::tip :::

@@ -20,7 +20,7 @@ routes.push({
 routes.push({
   path: '/jsx',
   name: 'jsx',
-  component: () => import(/*webpackChunkName:"jsx"*/ './JSX.vue'),
+  component: () => import(/*webpackChunkName:"jsx"*/ './component/JSX.vue'),
 })
 
 export default new VueRouter({
