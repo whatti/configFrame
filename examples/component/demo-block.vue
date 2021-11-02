@@ -39,7 +39,12 @@ export default {
       return this.$el.getElementsByClassName('meta')[0]
     },
     //完全展开代码块所需要的高度
-    codeAreaHeight() {},
+    codeAreaHeight() {
+      if (this.$el.getElementsByClassName('description').length > 0) {
+        return this.$el.getElementsByClassName('description')[0].clientHeight + this.$el.getElementsByClassName('highlight')[0].clientHeight + 20
+      }
+      return this.$el.getElementsByClassName('highlight')[0].clientHeight
+    },
   },
   watch: {
     isExpanded: function (val) {
@@ -66,7 +71,7 @@ export default {
   background-color: #fafafa;
   border-top: solid 1px #eaeefb;
   overflow: hidden;
-  hidden: 0;
+  height: 0;
   transition: height 0.2s;
 }
 </style>
