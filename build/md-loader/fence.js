@@ -35,7 +35,7 @@ module.exports = (md) => {
     //self md对象
     const token = tokens[idx]
     //判断该fence是否在:::demo内
-    const preToken = token[idx - 1]
+    const preToken = tokens[idx - 1]
     const isInDemoContainer = preToken && preToken.nesting === 1 && preToken.info.trim().match(/^demo\s*(.*)$/)
     if (token.info === 'html' && isInDemoContainer) {
       //v-pre是vue自带的指令，用来显示原始Mustache标签。考虑到代码片段会包含Mustache标签，使用该指令来跳过对code的编译

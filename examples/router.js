@@ -10,7 +10,10 @@ const routes = [
     component: () => import(/*webpackChunkName:"index"*/ './app.vue'),
   },
 ]
-
+routes.push({
+  path: '/loading-zu-jian',
+  redirect: '/test',
+})
 routes.push({
   path: '/test',
   name: 'test',
