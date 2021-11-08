@@ -19,12 +19,59 @@ function stripTemplate(content) {
   if (!content) {
     return content
   }
-  return content.replace(/<(script|sstyle)>([\s\S])+<\/\l>/g, '').trim()
+  return content.replace(/<(script|sstyle)>([\s\S])+<\/\1>/g, '').trim()
 }
 
 //参考templateLoader.js源码
+// https://github.com/vuejs/vue-loader/blob/423b8341ab368c2117931e909e2da9af74503635/lib/loaders/templateLoader.js#L46
 //将自定义容器中的 代码块 转成一个个内联component注入到整个页面中
-function genInlineComponentText(template, script) {}
+function genInlineComponentText(template, script) {
+  const finalOptions = {
+    source: `<div>${template}</div>`,
+    filename: 'inline-component',
+    compiler,
+  }
+  const compiled = compileTemplate(finalOptions)
+  //tips
+  if (compiled.tips && compiled.tips.length) {
+    compiled.tips.forEach((element) => {
+      console.log(element)
+    })
+  }
+  //errors
+  if (compiled.errors && compiled.errors.length) {
+    console.error(`\n  Error compiling template:\n${pad(compiled.source)}\n` + compiled.errors.map((e) => `  - ${e}`).join('\n') + '\n')
+  }
+  // 组件内容
+  let demoComponentContent = `
+    ${compiled.code}
+  `
+  // script内容
+  script = script.trim()
+  if (script) {
+    script = script.replace(/export\s+default/, 'const democomponentExport =')
+  } else {
+    script = 'const democomponentExport = {}'
+  }
+  demoComponentContent = `(function() {
+    ${demoComponentContent}
+    ${script}
+    return {
+      render,
+      staticRenderFns,
+      ...democomponentExport
+    }
+  })()`
+  return demoComponentContent
+}
+
+// 每行增加空格
+function pad(source) {
+  return source
+    .split(/\r?\n/)
+    .map((line) => `  ${line}`)
+    .join('\n')
+}
 
 module.exports = {
   stripScript,

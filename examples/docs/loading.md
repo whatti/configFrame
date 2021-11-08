@@ -5,7 +5,19 @@
 <!-- 处理函数执行两次，第一次返回:::demo的替换，第二次返回:::的替换 -->
 :::demo Loading的基础用法
 ```html
+<template>
 <me-loading loading-text="页面加载中......"></me-loading>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        text: "页面加载中……"
+      };
+    }
+  };
+</script>
 ```
 
 :::
